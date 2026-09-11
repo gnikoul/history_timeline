@@ -1,0 +1,37 @@
+body,html {
+    margin: 0;
+    padding: 0;
+}
+* {
+    box-sizing: border-box;
+}
+
+.appWrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+.mapAndSideBarWrapper{
+    flex: 5;
+    display: flex;
+    flex-direction: row;
+}
+.timelineWrapper{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.timeline{
+    width: 90%;
+}
+
+.mapWrapper{
+    flex: 3;
+}
+
+.sideBarWrapper{
+    flex:1;
+}
+
