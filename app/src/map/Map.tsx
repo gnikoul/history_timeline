@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
 import type { LatLngExpression } from 'leaflet';
 import "leaflet/dist/leaflet.css";
-import timelines from './TimeLines';
+import timelines from '../TimeLines';
 import { useEffect } from 'react';
 import { Polyline } from 'react-leaflet';
 import { Icon } from 'leaflet';
@@ -9,9 +9,10 @@ import { Icon } from 'leaflet';
 interface Props {
     SelectedTimeline: number;
     SelectedEvent: number;
+    SetSelectedEvent: (value: number) => void;
 }
 
-function Map({SelectedTimeline, SelectedEvent}: Props) {
+function Map({SelectedTimeline, SelectedEvent, SetSelectedEvent}: Props) {
     let selectedLocationCoords: LatLngExpression = [38.663194, 24.366704];
     let allCoords: [number, number][] = [];
     if (SelectedTimeline !== -1){
@@ -27,13 +28,13 @@ function Map({SelectedTimeline, SelectedEvent}: Props) {
         selectedLocationCoords = [meanLat, meanLng];
     } 
     return (
-    <MapContainer style={{ height: "100%", width: "100%" }} center={selectedLocationCoords} zoom={6}>
+    <MapContainer  style={{ height: "100%", width: "100%" }} center={selectedLocationCoords} zoom={6}>
         <TileLayer 
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <ChangeView SelectedTimeline={SelectedTimeline} selectedEvent={SelectedEvent} selectedLocationCoords={selectedLocationCoords}/>
-        <Markers locations={allCoords} selectedLocation={SelectedEvent}/>
+        <Markers locations={allCoords} selectedLocation={SelectedEvent} SetSelectedEvent={SetSelectedEvent} />
         <Lines locations={allCoords} />
     </MapContainer>
     );
@@ -61,8 +62,11 @@ function ChangeView({
     return null;
 }
 
-
-function Markers({ locations, selectedLocation }: { locations: LatLngExpression[], selectedLocation: number }) {
+function handleMarkerClick(EventId: number, SetSelectedEvent: (value: number) => void) {
+    console.log(EventId);
+    SetSelectedEvent(EventId);
+}
+function Markers({ locations, selectedLocation, SetSelectedEvent }: { locations: LatLngExpression[], selectedLocation: number, SetSelectedEvent: (value: number) => void, }) {
     const normalIcon = new Icon({
         iconUrl: "./src/assets/marker-icon-2x.png",
         iconSize: [25, 41],
@@ -77,10 +81,10 @@ function Markers({ locations, selectedLocation }: { locations: LatLngExpression[
     return (
         <>
             {locations.map((position, index) => (
-                <Marker key={index} position={position} icon={index === selectedLocation ? selectedIcon : normalIcon}>
-                    <Popup>
+                <Marker eventHandlers={{ click: () => {handleMarkerClick(index, SetSelectedEvent)} }} key={index} position={position} icon={index === selectedLocation ? selectedIcon : normalIcon}>
+                    {/* <Popup>
                     A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
+                    </Popup> */}
                 </Marker>
             ))}
         </>

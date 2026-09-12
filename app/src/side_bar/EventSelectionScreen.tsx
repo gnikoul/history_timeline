@@ -1,4 +1,4 @@
-import timelines from "./TimeLines";
+import timelines from "../TimeLines";
 import type { MenuScreen } from "./SideBar";
 
 interface Props {

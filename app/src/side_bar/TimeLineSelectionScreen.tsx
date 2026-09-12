@@ -1,4 +1,4 @@
-import timelines from "./TimeLines";
+import timelines from "../TimeLines";
 import type { MenuScreen } from "./SideBar";
 
 interface Props {
@@ -15,20 +15,22 @@ function TimeLineSelectionScreen({SetSelectedTimeline, setActiveMenuScreen}: Pro
     
     const timelinesList = timelines.map((timeline, index) => (
                         <li key={index} onClick={() => {handleClick(index, SetSelectedTimeline, setActiveMenuScreen)}}>
-                            <div>
+                            <div className="timelineTitle">
                                 {timeline[0].name}
                             </div>
-                            <div>
+                            <div className="description">
                                 {timeline[0].description}
                             </div>
                         </li>
                     ));
 
     return (
+        <div id="TimeLineSelectionScreenWrapper">
+        <div className="title">Επέλεξε Χρονολόγιο</div>
         <ul>
             {timelinesList}
         </ul>
-        
+        </div>
     )
     
 }

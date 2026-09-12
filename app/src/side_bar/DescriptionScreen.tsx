@@ -1,4 +1,4 @@
-import timelines from "./TimeLines";
+import timelines from "../TimeLines";
 interface Props {
     SelectedTimeline: number;
     SelectedEvent: number;

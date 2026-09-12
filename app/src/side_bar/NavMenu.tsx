@@ -30,10 +30,10 @@ function handleClick(
 
 function NavMenu({SetActiveMenuScreen, SelectedTimeline, SetSelectedTimeline, SelectedEvent, SetSelectedEvent}: Props) {
     return (
-    <>
-        <button onClick={() => {handleClick(SetActiveMenuScreen, SelectedTimeline, SetSelectedTimeline, SelectedEvent, SetSelectedEvent)}}> Go Back</button>
+    <div id="navMenu" className="navMenu">
+        <button id="back" className="menuBtn" onClick={() => {handleClick(SetActiveMenuScreen, SelectedTimeline, SetSelectedTimeline, SelectedEvent, SetSelectedEvent)}}>Πίσω</button>
         
-    </>
+    </div>
     )
 
 }
